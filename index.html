@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智税通｜智慧财税管理智能体</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft Yahei",sans-serif}
+        body{background:#f4f7fa;color:#333}
+        header{background:#165DFF;color:#fff;padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+        .admin-info{font-size:14px}
+        nav{background:#fff;border-bottom:1px solid #e5e7eb;display:flex;padding:0 20px}
+        nav a{padding:14px 18px;text-decoration:none;color:#444;display:block}
+        nav a:hover,nav a.active{background:#eef5ff;color:#165DFF}
+        .container{max-width:1200px;margin:24px auto;padding:0 20px}
+        .card{background:#fff;border-radius:10px;padding:20px;margin-bottom:18px;box-shadow:0 2px 8px #00000010}
+        .card h3{margin-bottom:12px;color:#165DFF}
+        .row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+        .btn{background:#165DFF;color:white;border:none;padding:9px 16px;border-radius:6px;cursor:pointer;margin:4px}
+        .btn-success{background:#00b42a}
+        .btn-warning{background:#ff7d00}
+        .btn-gray{background:#86909c}
+        .tip-box{background:#fff7e8;border-left:4px solid #ff7d00;padding:10px;margin:10px 0}
+        .risk-high{background:#ffeef0;border-left:4px solid #f53f3f;padding:10px;margin:10px 0}
+        .risk-safe{background:#e8ffea;border-left:4px solid #00b42a;padding:10px;margin:10px 0}
+        input,select,textarea{width:100%;padding:8px;border:1px solid #dcdfe6;border-radius:5px;margin:6px 0}
+        .hide{display:none}
+        table{width:100%;border-collapse:collapse;margin:10px 0}
+        th,td{border:1px solid #eee;padding:9px;text-align:left}
+        th{background:#f2f3f5}
+        footer{text-align:center;padding:20px;color:#666;font-size:14px;margin-top:30px}
+    </style>
+</head>
+<body>
+    <header>
+        <h2>智税通 · 智慧财税管理智能体</h2>
+        <div class="admin-info">管理员：小高｜部署地点：陕西西安长安区</div>
+    </header>
+    <nav>
+        <a href="#" class="active" onclick="switchPage('home')">首页看板</a>
+        <a href="#" onclick="switchPage('company')">企业中心</a>
+        <a href="#" onclick="switchPage('upload')">数据上传</a>
+        <a href="#" onclick="switchPage('tax')">计税申报</a>
+        <a href="#" onclick="switchPage('policy')">政策中心</a>
+        <a href="#" onclick="switchPage('risk')">风险看板</a>
+        <a href="#" onclick="switchPage('chat')">智能问答</a>
+        <a href="#" onclick="switchPage('msg')">消息提醒</a>
+    </nav>
+    <div class="container">
+        <!-- 首页 -->
+        <div id="page-home" class="page">
+            <div class="card">
+                <h3>企业财税总览看板</h3>
+                <div class="row">
+                    <div class="card">
+                        <h4>本期应纳税预估</h4>
+                        <p>增值税：12689.40 元</p>
+                        <p>企业所得税：8542.10 元</p>
+                    </div>
+                    <div class="card">
+                        <h4>可享受优惠</h4>
+                        <p>共匹配3项优惠，预计减免：6240元</p>
+                        <div class="tip-box">小型微利企业所得税优惠、六税两费减免</div>
+                    </div>
+                    <div class="card">
+                        <h4>涉税风险</h4>
+                        <p>中风险1项，低风险2项</p>
+                        <button class="btn-warning" onclick="switchPage('risk')">查看风险报告</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 企业中心 -->
+        <div id="page-company" class="page hide">
+            <div class="card">
+                <h3>企业画像管理（用于政策智能匹配）</h3>
+                <label>企业名称</label><input value="西安XX商贸有限公司">
+                <label>纳税人身份</label>
+                <select>
+                    <option>小规模纳税人</option>
+                    <option selected>一般纳税人</option>
+                </select>
+                <label>所属行业</label><input value="批发零售业">
+                <label>企业规模</label>
+                <select>
+                    <option selected>小型微利企业</option>
+                    <option>中型企业</option>
+                    <option>大型企业</option>
+                </select>
+                <label>注册地址</label><input value="陕西省西安市长安区">
+                <br>
+                <button class="btn">保存企业画像</button>
+                <div class="tip-box">系统基于以上标签自动匹配税收政策，构建企业画像</div>
+            </div>
+        </div>
+        <!-- 数据上传 -->
+        <div id="page-upload" class="page hide">
+            <div class="card">
+                <h3>多源财税数据采集</h3>
+                <p>支持财务报表、发票PDF、扫描凭证、银行流水、合同图片上传（NLP抽取非结构化信息）</p>
+                <input type="file" multiple accept=".pdf,.jpg,.png,.xlsx">
+                <button class="btn">上传并解析数据</button>
+                <div class="tip-box">上传后自动清洗、标准化、匹配会计科目与税种勾稽关系</div>
+                <table>
+                    <tr><th>文件名</th><th>类型</th><th>解析状态</th></tr>
+                    <tr><td>2026-09财务报表.xlsx</td><td>结构化财务数据</td><td>✅解析完成</td></tr>
+                    <tr><td>进项发票扫描件.jpg</td><td>图片凭证</td><td>✅OCR信息抽取完成</td></tr>
+                </table>
+            </div>
+        </div>
+        <!-- 计税申报 -->
+        <div id="page-tax" class="page hide">
+            <div class="card">
+                <h3>自动计税 & 多税种申报</h3>
+                <p>支持增值税、企业所得税附加税费自动计算，生成申报表，支持人工复核调整</p>
+                <button class="btn-success">一键自动计税</button>
+                <button class="btn">生成全套申报表</button>
+                <button class="btn">批量提交申报</button>
+                <button class="btn-gray">下载申报表归档</button>
+                <table>
+                    <tr><th>税种</th><th>计税结果</th><th>申报状态</th></tr>
+                    <tr><td>增值税</td><td>12689.40</td><td>待申报</td></tr>
+                    <tr><td>企业所得税</td><td>8542.10</td><td>待申报</td></tr>
+                    <tr><td>城市维护建设税</td><td>888.26</td><td>待申报</td></tr>
+                </table>
+                <div class="tip-box">计税规则内置税法口径，支持人工修改表单数值，复核留痕</div>
+            </div>
+        </div>
+        <!-- 政策中心 -->
+        <div id="page-policy" class="page hide">
+            <div class="card">
+                <h3>税收政策智能匹配中心</h3>
+                <button class="btn">重新匹配企业适用政策</button>
+                <div class="risk-safe">✅可享受：小型微利企业所得税优惠，减免测算：4120元；备查资料：从业人数、资产总额证明</div>
+                <div class="risk-safe">✅可享受：六税两费减免（陕西），减免测算：2120元</div>
+                <div class="tip-box">⏸暂不满足：高新技术企业优惠，条件：未取得高企证书</div>
+                <div class="tip-box">📌已享受：小规模阶段性减免（上期）</div>
+                <div class="tip-box">政策库动态更新，自动识别西安本地地方税费优惠</div>
+            </div>
+        </div>
+        <!-- 风险看板 -->
+        <div id="page-risk" class="page hide">
+            <div class="card">
+                <h3>涉税风险分析报告（机器学习异常识别）</h3>
+                <div class="risk-high">⚠中风险：进项抵扣勾稽异常，销项收入与进项成本配比偏离行业均值；整改建议：核对进项发票业务真实性</div>
+                <div class="tip-box">🔹低风险：部分凭证缺少留存备查资料</div>
+                <div class="tip-box">🔹低风险：往来款项长期挂账，建议定期清理</div>
+                <button class="btn">导出完整风险报告与整改方案</button>
+            </div>
+        </div>
+        <!-- 智能问答 -->
+        <div id="page-chat" class="page hide">
+            <div class="card">
+                <h3>财税智能问答（NLP+税收知识图谱）</h3>
+                <textarea placeholder="输入财税问题，例如：西安小微企业六税两费怎么享受？小型微利判断标准是什么？"></textarea>
+                <button class="btn">提问</button>
+                <div class="tip-box">智能体基于知识图谱检索政策原文，给出政策依据、适用条件</div>
+            </div>
+        </div>
+        <!-- 消息提醒 -->
+        <div id="page-msg" class="page hide">
+            <div class="card">
+                <h3>站内合规提醒</h3>
+                <div class="tip-box">⏰申报提醒：增值税申报截止日：10月31日</div>
+                <div class="tip-box">📢政策更新提醒：陕西省残保金最新政策已更新入库</div>
+                <div class="risk-high">⚠风险待办：进项异常事项，请5日内完成核查</div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        智税通智慧财税智能体｜课程作业项目｜管理员：小高｜西安长安区
+    </footer>
+    <script>
+        function switchPage(pagename){
+            document.querySelectorAll('.page').forEach(p=>p.classList.add('hide'))
+            document.getElementById('page-'+pagename).classList.remove('hide')
+            document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'))
+            event.target.classList.add('active')
+        }
+    </script>
+</body>
+</html>
